@@ -6,6 +6,7 @@
     <title>BINARY MASTERY PRO | Ultimate Trading Platform</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lightweight-charts@3.8.0/dist/lightweight-charts.standalone.production.js"></script>
     <style>
         /* ======== GLOBAL RESETS ======== */
         * {
@@ -346,6 +347,10 @@
             margin-top: 1rem;
         }
         
+        .expiry-time {
+            margin-bottom: 2rem;
+        }
+        
         .trade-buttons {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -363,6 +368,11 @@
             color: white;
         }
         
+        .balance-display {
+            font-size: 1.6rem;
+            margin-bottom: 2rem;
+        }
+        
         .trade-history {
             margin-top: 2rem;
         }
@@ -372,6 +382,7 @@
             justify-content: space-between;
             padding: 1rem 0;
             border-bottom: 1px solid var(--gray-light);
+            font-size: 1.4rem;
         }
         
         .history-item.win {
@@ -669,6 +680,81 @@
             border-color: var(--primary);
         }
         
+        /* ======== CONTACT SECTION ======== */
+        .contact-section {
+            background-color: white;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 5rem;
+        }
+        
+        .contact-form {
+            background-color: #f8fafc;
+            padding: 3rem;
+            border-radius: 0.8rem;
+        }
+        
+        .form-group {
+            margin-bottom: 2rem;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            color: var(--gray);
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--gray-light);
+            border-radius: 0.4rem;
+            font-size: 1.4rem;
+        }
+        
+        .form-group textarea {
+            min-height: 15rem;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+        }
+        
+        .info-icon {
+            width: 4rem;
+            height: 4rem;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+        }
+        
+        .info-content h4 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .info-content p {
+            font-size: 1.4rem;
+            color: var(--gray);
+        }
+        
         /* ======== FOOTER ======== */
         footer {
             background-color: var(--darker);
@@ -798,6 +884,10 @@
                 width: 100%;
                 text-align: center;
             }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
         }
         
         @media (max-width: 576px) {
@@ -815,6 +905,17 @@
             
             .trade-buttons {
                 grid-template-columns: 1fr;
+            }
+            
+            .strategy-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .strategy-meta {
+                width: 100%;
+                justify-content: space-between;
             }
         }
     </style>
@@ -1027,6 +1128,16 @@
                     <div class="strategy-body">
                         <p>Combine MACD indicator with price action to confirm strong trends. This strategy works best on 15-minute charts during active trading sessions (London/New York overlap).</p>
                     </div>
+                    <div class="strategy-steps">
+                        <h4>Implementation Steps:</h4>
+                        <ol>
+                            <li>Apply MACD with standard settings (12,26,9)</li>
+                            <li>Look for price making higher highs (for CALL) or lower lows (for PUT)</li>
+                            <li>Confirm with MACD histogram showing increasing momentum</li>
+                            <li>Enter trade when price retraces to key support/resistance level</li>
+                            <li>Set expiry time to 15-30 minutes to allow trade to develop</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
             <div class="tab-content" id="reversal">
@@ -1041,9 +1152,67 @@
                     <div class="strategy-body">
                         <p>Identify potential trend reversals using RSI divergence patterns. This advanced strategy requires patience but offers high reward potential when executed correctly.</p>
                     </div>
+                    <div class="strategy-steps">
+                        <h4>Implementation Steps:</h4>
+                        <ol>
+                            <li>Apply RSI (14 period) to your chart</li>
+                            <li>Look for price making higher highs while RSI makes lower highs (bearish divergence)</li>
+                            <li>Or price making lower lows while RSI makes higher lows (bullish divergence)</li>
+                            <li>Wait for RSI to cross back below 70 (for PUT) or above 30 (for CALL)</li>
+                            <li>Set shorter expiry times (5-10 minutes) as reversals can be swift</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
-            <!-- More strategy tabs content would go here -->
+            <div class="tab-content" id="breakout">
+                <div class="strategy-card">
+                    <div class="strategy-header">
+                        <h3 class="strategy-title">Support/Resistance Breakout</h3>
+                        <div class="strategy-meta">
+                            <span class="meta-item"><i class="fas fa-chart-line"></i> 72% Win Rate</span>
+                            <span class="meta-item"><i class="fas fa-clock"></i> 1-5 min expiry</span>
+                        </div>
+                    </div>
+                    <div class="strategy-body">
+                        <p>Trade breakouts from key support/resistance levels with this high-probability strategy. Works best during high volatility periods and major news events.</p>
+                    </div>
+                    <div class="strategy-steps">
+                        <h4>Implementation Steps:</h4>
+                        <ol>
+                            <li>Identify clear support/resistance levels on 5-minute or 15-minute chart</li>
+                            <li>Wait for price to approach level and show consolidation</li>
+                            <li>Enter CALL trade when price breaks above resistance with increasing volume</li>
+                            <li>Enter PUT trade when price breaks below support with increasing volume</li>
+                            <li>Use shorter expiry times (1-5 minutes) to capture quick momentum moves</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" id="news">
+                <div class="strategy-card">
+                    <div class="strategy-header">
+                        <h3 class="strategy-title">Economic News Spike</h3>
+                        <div class="strategy-meta">
+                            <span class="meta-item"><i class="fas fa-chart-line"></i> 80% Win Rate</span>
+                            <span class="meta-item"><i class="fas fa-clock"></i> 1-2 min expiry</span>
+                        </div>
+                    </div>
+                    <div class="strategy-body">
+                        <p>Capitalize on the immediate volatility following major economic news releases with this high-speed strategy. Requires quick execution and strict risk management.</p>
+                    </div>
+                    <div class="strategy-steps">
+                        <h4>Implementation Steps:</h4>
+                        <ol>
+                            <li>Monitor economic calendar for high-impact news events</li>
+                            <li>Focus on currency pairs directly affected by the news</li>
+                            <li>Place CALL trade if price spikes up immediately after news release</li>
+                            <li>Place PUT trade if price spikes down immediately after news release</li>
+                            <li>Use very short expiry times (1-2 minutes) to capture initial momentum</li>
+                            <li>Limit stake size to 2-3% of balance due to higher risk</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1105,42 +1274,55 @@
     </section>
 
     <!-- Contact Section -->
-    <section class="section" id="contact">
+    <section class="section contact-section" id="contact">
         <div class="container">
             <h2 class="section-title">Ready to Start Trading?</h2>
-            <div class="flex" style="gap: 5rem;">
-                <div style="flex: 1;">
+            <div class="contact-container">
+                <div class="contact-form">
                     <h3>Contact Our Team</h3>
-                    <form id="contactForm" style="margin-top: 2rem;">
-                        <div style="margin-bottom: 2rem;">
-                            <label for="name" style="display: block; margin-bottom: 0.5rem; font-size: 1.4rem;">Your Name</label>
-                            <input type="text" id="name" style="width: 100%; padding: 1rem; border: 1px solid var(--gray-light); border-radius: 0.4rem;">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" required>
                         </div>
-                        <div style="margin-bottom: 2rem;">
-                            <label for="email" style="display: block; margin-bottom: 0.5rem; font-size: 1.4rem;">Email Address</label>
-                            <input type="email" id="email" style="width: 100%; padding: 1rem; border: 1px solid var(--gray-light); border-radius: 0.4rem;">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" required>
                         </div>
-                        <div style="margin-bottom: 2rem;">
-                            <label for="message" style="display: block; margin-bottom: 0.5rem; font-size: 1.4rem;">Message</label>
-                            <textarea id="message" rows="5" style="width: 100%; padding: 1rem; border: 1px solid var(--gray-light); border-radius: 0.4rem;"></textarea>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Send Message</button>
                     </form>
                 </div>
-                <div style="flex: 1;">
+                <div class="contact-info">
                     <h3>Frequently Asked Questions</h3>
-                    <div style="margin-top: 2rem;">
-                        <div style="margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--gray-light);">
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-question"></i>
+                        </div>
+                        <div class="info-content">
                             <h4>Is binary options trading risky?</h4>
-                            <p style="font-size: 1.4rem; margin-top: 1rem;">Like all forms of trading, binary options carry risk. However, our education program teaches you proven risk management techniques to minimize losses and maximize gains.</p>
+                            <p>Like all trading, there's risk, but our education minimizes it through proven strategies.</p>
                         </div>
-                        <div style="margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--gray-light);">
-                            <h4>How much money do I need to start?</h4>
-                            <p style="font-size: 1.4rem; margin-top: 1rem;">You can practice with our simulator for free. When ready to trade live, many brokers allow accounts with as little as $250, but we recommend starting with at least $500 for proper risk management.</p>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-dollar-sign"></i>
                         </div>
-                        <div>
-                            <h4>How long until I see results?</h4>
-                            <p style="font-size: 1.4rem; margin-top: 1rem;">Most students see improvement within 2-4 weeks of consistent practice. Becoming consistently profitable typically takes 3-6 months of dedicated learning and application.</p>
+                        <div class="info-content">
+                            <h4>How much do I need to start?</h4>
+                            <p>Practice free with our simulator. Live accounts can start with $250-$500.</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>How long to see results?</h4>
+                            <p>Most see improvement in weeks, consistent profits typically take 3-6 months.</p>
                         </div>
                     </div>
                 </div>
@@ -1154,8 +1336,8 @@
             <div class="footer-grid">
                 <div class="footer-col">
                     <h3>BinaryPro</h3>
-                    <p style="font-size: 1.4rem; margin-top: 1.5rem; color: var(--gray-light);">The most comprehensive binary options education platform for traders of all levels.</p>
-                    <div class="social-links" style="margin-top: 2rem;">
+                    <p>The most comprehensive binary options education platform for traders of all levels.</p>
+                    <div class="social-links">
                         <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
                         <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
                         <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
@@ -1229,6 +1411,9 @@
                 this.trendDirection = 'up'; // 'up' or 'down'
                 this.priceHistory = this.generatePriceHistory(1.0850, 200);
                 this.chart = null;
+                this.candlestickSeries = null;
+                this.ema5Series = null;
+                this.ema10Series = null;
                 
                 // Initialize simulator
                 this.initChart();
@@ -1524,16 +1709,18 @@
                 setTimeout(() => {
                     const exitPrice = this.priceHistory[this.priceHistory.length - 1].value;
                     let result;
+                    let profit = 0;
                     
                     if ((direction === 'call' && exitPrice > entryPrice) || 
                         (direction === 'put' && exitPrice < entryPrice)) {
                         // Win
                         result = 'win';
-                        const payout = amount * 0.75; // 75% payout for demo
-                        this.balance += amount + payout;
+                        profit = amount * 0.75; // 75% payout for demo
+                        this.balance += amount + profit;
                     } else {
                         // Loss
                         result = 'loss';
+                        profit = -amount;
                     }
                     
                     // Record trade
@@ -1542,9 +1729,10 @@
                         asset: this.currentAsset,
                         direction,
                         amount,
-                        entryPrice,
-                        exitPrice,
+                        entryPrice: entryPrice.toFixed(4),
+                        exitPrice: exitPrice.toFixed(4),
                         result,
+                        profit,
                         time: new Date().toLocaleTimeString()
                     };
                     
@@ -1557,7 +1745,30 @@
                     this.updateBalanceDisplay();
                     this.updateTradeHistoryDisplay();
                     
+                    // Show trade result notification
+                    this.showTradeResultNotification(trade);
+                    
                 }, expiryMinutes * 1000); // Convert minutes to milliseconds
+            }
+            
+            showTradeResultNotification(trade) {
+                const notification = document.createElement('div');
+                notification.className = `trade-notification ${trade.result}`;
+                notification.innerHTML = `
+                    <p>Trade ${trade.result === 'win' ? 'Won' : 'Lost'}!</p>
+                    <p>${trade.direction.toUpperCase()} ${trade.asset}</p>
+                    <p>${trade.result === 'win' ? '+' : '-'}$${Math.abs(trade.profit).toFixed(2)}</p>
+                `;
+                
+                document.body.appendChild(notification);
+                
+                // Remove notification after 3 seconds
+                setTimeout(() => {
+                    notification.classList.add('fade-out');
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 500);
+                }, 3000);
             }
             
             updateBalanceDisplay() {
@@ -1577,11 +1788,11 @@
                         : '<i class="fas fa-arrow-down"></i>';
                     
                     const resultText = trade.result === 'win' 
-                        ? `+$${(trade.amount * 0.75).toFixed(2)}` 
-                        : `-$${trade.amount.toFixed(2)}`;
+                        ? `+$${trade.profit.toFixed(2)}` 
+                        : `-$${Math.abs(trade.profit).toFixed(2)}`;
                     
                     item.innerHTML = `
-                        <span>${trade.asset} ${directionIcon} $${trade.amount.toFixed(2)}</span>
+                        <span>${trade.time} ${trade.asset} ${directionIcon} $${trade.amount.toFixed(2)}</span>
                         <span>${resultText}</span>
                     `;
                     
@@ -1590,57 +1801,219 @@
             }
         }
         
-        // Initialize simulator when DOM loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            const simulator = new TradingSimulator();
-            
-            // Testimonials slider
-            let currentTestimonial = 0;
-            const testimonials = document.querySelectorAll('.testimonial-card');
-            const testimonialTrack = document.getElementById('testimonialTrack');
-            
-            function showTestimonial(index) {
-                testimonialTrack.style.transform = `translateX(-${index * 100}%)`;
+        // ========== TESTIMONIALS SLIDER ==========
+        class TestimonialsSlider {
+            constructor() {
+                this.currentIndex = 0;
+                this.track = document.getElementById('testimonialTrack');
+                this.testimonials = document.querySelectorAll('.testimonial-card');
+                this.prevBtn = document.getElementById('prevTestimonial');
+                this.nextBtn = document.getElementById('nextTestimonial');
+                
+                this.setupEventListeners();
+                this.updateSliderPosition();
             }
             
-            document.getElementById('nextTestimonial').addEventListener('click', () => {
-                currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-                showTestimonial(currentTestimonial);
-            });
+            setupEventListeners() {
+                this.prevBtn.addEventListener('click', () => {
+                    this.currentIndex = (this.currentIndex - 1 + this.testimonials.length) % this.testimonials.length;
+                    this.updateSliderPosition();
+                });
+                
+                this.nextBtn.addEventListener('click', () => {
+                    this.currentIndex = (this.currentIndex + 1) % this.testimonials.length;
+                    this.updateSliderPosition();
+                });
+                
+                // Touch events for mobile swipe
+                let touchStartX = 0;
+                let touchEndX = 0;
+                
+                this.track.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                }, false);
+                
+                this.track.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    this.handleSwipe();
+                }, false);
+            }
             
-            document.getElementById('prevTestimonial').addEventListener('click', () => {
-                currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
-                showTestimonial(currentTestimonial);
-            });
+            handleSwipe() {
+                const swipeThreshold = 50;
+                
+                if (touchEndX < touchStartX - swipeThreshold) {
+                    // Swipe left - next
+                    this.currentIndex = (this.currentIndex + 1) % this.testimonials.length;
+                    this.updateSliderPosition();
+                }
+                
+                if (touchEndX > touchStartX + swipeThreshold) {
+                    // Swipe right - previous
+                    this.currentIndex = (this.currentIndex - 1 + this.testimonials.length) % this.testimonials.length;
+                    this.updateSliderPosition();
+                }
+            }
             
-            // Strategy tabs
-            const tabBtns = document.querySelectorAll('.tab-btn');
-            const tabContents = document.querySelectorAll('.tab-content');
+            updateSliderPosition() {
+                this.track.style.transform = `translateX(-${this.currentIndex * 100}%)`;
+                
+                // Update active state for buttons
+                this.prevBtn.disabled = this.currentIndex === 0;
+                this.nextBtn.disabled = this.currentIndex === this.testimonials.length - 1;
+            }
+        }
+        
+        // ========== STRATEGY TABS ==========
+        class StrategyTabs {
+            constructor() {
+                this.tabBtns = document.querySelectorAll('.tab-btn');
+                this.tabContents = document.querySelectorAll('.tab-content');
+                
+                this.setupEventListeners();
+            }
             
-            tabBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const tabId = btn.dataset.tab;
-                    
-                    // Update active tab button
-                    tabBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    
-                    // Show corresponding content
-                    tabContents.forEach(content => {
-                        content.classList.remove('active');
-                        if (content.id === tabId) {
-                            content.classList.add('active');
-                        }
+            setupEventListeners() {
+                this.tabBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const tabId = btn.dataset.tab;
+                        this.switchTab(tabId);
                     });
                 });
-            });
+            }
             
-            // Contact form
-            document.getElementById('contactForm').addEventListener('submit', (e) => {
-                e.preventDefault();
-                alert('Thank you for your message! Our team will contact you soon.');
-                e.target.reset();
-            });
+            switchTab(tabId) {
+                // Update active tab button
+                this.tabBtns.forEach(b => b.classList.remove('active'));
+                const activeBtn = Array.from(this.tabBtns).find(b => b.dataset.tab === tabId);
+                activeBtn.classList.add('active');
+                
+                // Show corresponding content
+                this.tabContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === tabId) {
+                        content.classList.add('active');
+                    }
+                });
+            }
+        }
+        
+        // ========== CONTACT FORM ==========
+        class ContactForm {
+            constructor() {
+                this.form = document.getElementById('contactForm');
+                
+                this.setupEventListeners();
+            }
+            
+            setupEventListeners() {
+                this.form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    // Get form values
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    const message = document.getElementById('message').value;
+                    
+                    // Simple validation
+                    if (!name || !email || !message) {
+                        alert('Please fill in all fields');
+                        return;
+                    }
+                    
+                    // In a real app, would send to server here
+                    console.log('Form submitted:', { name, email, message });
+                    
+                    // Show success message
+                    this.showSuccessMessage();
+                    
+                    // Reset form
+                    this.form.reset();
+                });
+            }
+            
+            showSuccessMessage() {
+                const successMsg = document.createElement('div');
+                successMsg.className = 'form-success';
+                successMsg.innerHTML = `
+                    <i class="fas fa-check-circle"></i>
+                    <p>Thank you for your message! We'll contact you soon.</p>
+                `;
+                
+                this.form.appendChild(successMsg);
+                
+                // Remove after 3 seconds
+                setTimeout(() => {
+                    successMsg.remove();
+                }, 3000);
+            }
+        }
+        
+        // ========== INITIALIZE ALL COMPONENTS WHEN DOM LOADED ==========
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize trading simulator
+            const simulator = new TradingSimulator();
+            
+            // Initialize testimonials slider
+            const testimonialsSlider = new TestimonialsSlider();
+            
+            // Initialize strategy tabs
+            const strategyTabs = new StrategyTabs();
+            
+            // Initialize contact form
+            const contactForm = new ContactForm();
+            
+            // Add trade notification styles dynamically
+            const style = document.createElement('style');
+            style.textContent = `
+                .trade-notification {
+                    position: fixed;
+                    top: 2rem;
+                    right: 2rem;
+                    padding: 1.5rem 2rem;
+                    border-radius: 0.5rem;
+                    color: white;
+                    font-weight: bold;
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                    z-index: 1000;
+                    animation: slideIn 0.3s ease-out;
+                }
+                
+                .trade-notification.win {
+                    background-color: var(--success);
+                }
+                
+                .trade-notification.loss {
+                    background-color: var(--danger);
+                }
+                
+                .trade-notification.fade-out {
+                    animation: fadeOut 0.5s ease-in;
+                    opacity: 0;
+                }
+                
+                .form-success {
+                    background-color: var(--success);
+                    color: white;
+                    padding: 1.5rem;
+                    border-radius: 0.5rem;
+                    margin-top: 2rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                }
+                
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                
+                @keyframes fadeOut {
+                    from { opacity: 1; }
+                    to { opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
         });
     </script>
 </body>
