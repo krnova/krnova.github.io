@@ -1,0 +1,697 @@
+<!-- COMPLETE DARK WEB WEBSITE HTML -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Complete Dark Web Compendium</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS WILL BE INSERTED HERE */
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        :root { --primary: #2c3e50; --secondary: #34495e; --accent: #e74c3c; --text: #ecf0f1; --dark: #1a1a1a; }
+        body { background-color: var(--dark); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+        header { background: linear-gradient(135deg, var(--primary), var(--secondary)); padding: 2rem; text-align: center; position: relative; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
+        .logo { font-size: 2rem; font-weight: 700; color: var(--accent); }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 2rem; }
+        nav ul li a { color: var(--text); text-decoration: none; transition: 0.3s; font-weight: 500; }
+        nav ul li a:hover { color: var(--accent); }
+        .hero { padding: 5rem 2rem; text-align: center; background: url('https://example.com/dark-web-bg.jpg') no-repeat center/cover; position: relative; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); }
+        .hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+        .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; }
+        .hero p { font-size: 1.2rem; margin-bottom: 2rem; }
+        .btn { display: inline-block; background: var(--accent); color: white; padding: 0.8rem 1.8rem; border-radius: 5px; text-decoration: none; font-weight: 600; transition: 0.3s; border: none; cursor: pointer; }
+        .btn:hover { background: #c0392b; transform: translateY(-3px); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .section-title { text-align: center; margin-bottom: 3rem; font-size: 2.5rem; color: var(--accent); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .card { background: var(--secondary); border-radius: 10px; overflow: hidden; transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.4); }
+        .card-img { height: 200px; overflow: hidden; }
+        .card-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .card:hover .card-img img { transform: scale(1.1); }
+        .card-content { padding: 1.5rem; }
+        .card h3 { margin-bottom: 1rem; font-size: 1.5rem; }
+        .warning { background: #e74c3c; padding: 2rem; border-radius: 10px; margin: 3rem 0; text-align: center; }
+        .warning h3 { font-size: 1.8rem; margin-bottom: 1rem; }
+        .tab-container { margin: 3rem 0; }
+        .tabs { display: flex; border-bottom: 2px solid var(--secondary); margin-bottom: 2rem; }
+        .tab-btn { padding: 1rem 2rem; background: none; border: none; color: var(--text); font-weight: 600; cursor: pointer; position: relative; }
+        .tab-btn.active { color: var(--accent); }
+        .tab-btn.active::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 100%; height: 2px; background: var(--accent); }
+        .tab-content { display: none; animation: fadeIn 0.5s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        footer { background: var(--primary); padding: 3rem 2rem; text-align: center; }
+        .social-links { margin: 1rem 0; }
+        .social-links a { color: var(--text); font-size: 1.5rem; margin: 0 1rem; transition: 0.3s; }
+        .social-links a:hover { color: var(--accent); }
+        .dark-mode-toggle { position: fixed; bottom: 2rem; right: 2rem; background: var(--accent); width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 100; }
+        .scroll-top { position: fixed; bottom: 2rem; left: 2rem; background: var(--secondary); width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 100; }
+        .hidden { display: none; }
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; z-index: 1000; opacity: 0; pointer-events: none; transition: 0.3s; }
+        .modal.active { opacity: 1; pointer-events: all; }
+        .modal-content { background: var(--secondary); padding: 2rem; border-radius: 10px; max-width: 800px; width: 90%; max-height: 90vh; overflow-y: auto; position: relative; }
+        .close-modal { position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem; cursor: pointer; }
+        .search-container { margin: 2rem 0; position: relative; }
+        .search-input { width: 100%; padding: 1rem; border-radius: 5px; border: none; background: var(--primary); color: var(--text); font-size: 1rem; }
+        .search-btn { position: absolute; right: 0.5rem; top: 0.5rem; background: var(--accent); border: none; color: white; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; }
+        .timeline { position: relative; max-width: 1200px; margin: 3rem auto; }
+        .timeline::after { content: ''; position: absolute; width: 6px; background: var(--accent); top: 0; bottom: 0; left: 50%; margin-left: -3px; }
+        .timeline-item { padding: 10px 40px; position: relative; width: 50%; box-sizing: border-box; }
+        .timeline-item::after { content: ''; position: absolute; width: 25px; height: 25px; background: var(--accent); border-radius: 50%; top: 15px; z-index: 1; }
+        .left { left: 0; }
+        .right { left: 50%; }
+        .left::after { right: -12px; }
+        .right::after { left: -12px; }
+        .timeline-content { padding: 20px; background: var(--secondary); border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        @media screen and (max-width: 768px) {
+            .timeline::after { left: 31px; }
+            .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .timeline-item::after { left: 18px; }
+            .left, .right { left: 0; }
+            .right::after { left: 18px; }
+            nav ul { flex-direction: column; align-items: center; }
+            nav ul li { margin: 0.5rem 0; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="logo">DarkWeb<span style="color: var(--accent);">Explorer</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#bright-side">Bright Side</a></li>
+                    <li><a href="#dark-side">Dark Side</a></li>
+                    <li><a href="#history">History</a></li>
+                    <li><a href="#how-to">How To Access</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>The Complete Dark Web Compendium</h1>
+            <p>Explore the hidden layers of the internet - from privacy tools to the most dangerous corners</p>
+            <a href="#overview" class="btn">Begin Exploration</a>
+        </div>
+    </section>
+
+    <section id="overview" class="container">
+        <h2 class="section-title">Dark Web Overview</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://example.com/dark-web-1.jpg" alt="Dark Web Layers">
+                </div>
+                <div class="card-content">
+                    <h3>What is the Dark Web?</h3>
+                    <p>The dark web is a part of the internet that isn't indexed by search engines and requires special software to access. It's often associated with anonymity and privacy.</p>
+                    <button class="btn" onclick="openModal('modal1')">Learn More</button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://example.com/dark-web-2.jpg" alt="Tor Browser">
+                </div>
+                <div class="card-content">
+                    <h3>How It Works</h3>
+                    <p>The dark web operates through overlay networks that use the internet but require specific configurations or authorization to access, with Tor being the most well-known.</p>
+                    <button class="btn" onclick="openModal('modal2')">Learn More</button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://example.com/dark-web-3.jpg" alt="Anonymity">
+                </div>
+                <div class="card-content">
+                    <h3>Anonymity</h3>
+                    <p>Dark web technologies like Tor route traffic through multiple servers and encrypt it at each step, making user tracking extremely difficult.</p>
+                    <button class="btn" onclick="openModal('modal3')">Learn More</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="warning">
+        <h3>⚠️ Warning</h3>
+        <p>The dark web contains illegal and disturbing content. Proceed with extreme caution and at your own risk.</p>
+    </div>
+
+    <section id="bright-side" class="container">
+        <h2 class="section-title">The Bright Side</h2>
+        <div class="tab-container">
+            <div class="tabs">
+                <button class="tab-btn active" onclick="openTab(event, 'privacy')">Privacy Tools</button>
+                <button class="tab-btn" onclick="openTab(event, 'whistleblowing')">Whistleblowing</button>
+                <button class="tab-btn" onclick="openTab(event, 'research')">Academic Research</button>
+                <button class="tab-btn" onclick="openTab(event, 'markets')">Legal Markets</button>
+            </div>
+            <div id="privacy" class="tab-content active">
+                <h3>Privacy Protection</h3>
+                <p>The dark web provides essential privacy tools for journalists, activists, and citizens living under oppressive regimes:</p>
+                <ul>
+                    <li>Secure communication platforms</li>
+                    <li>Anonymous email services</li>
+                    <li>Censorship-resistant publishing</li>
+                    <li>Privacy-focused social networks</li>
+                </ul>
+                <div class="grid" style="margin-top: 2rem;">
+                    <div class="card">
+                        <div class="card-content">
+                            <h4>SecureDrop</h4>
+                            <p>An open-source whistleblower submission system used by media organizations to securely accept documents from anonymous sources.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-content">
+                            <h4>Tor</h4>
+                            <p>The Onion Router provides anonymous communication by directing internet traffic through a worldwide volunteer network.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="whistleblowing" class="tab-content">
+                <h3>Whistleblowing Platforms</h3>
+                <p>The dark web has been crucial for whistleblowers to expose corruption and human rights violations without fear of retaliation.</p>
+                <div class="timeline">
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h4>2010</h4>
+                            <p>WikiLeaks publishes the Iraq War Logs and Afghan War Diary through dark web submissions</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h4>2013</h4>
+                            <p>Edward Snowden uses dark web tools to communicate with journalists about NSA surveillance</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h4>2016</h4>
+                            <p>Panama Papers investigation relies on dark web communications to protect sources</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="research" class="tab-content">
+                <h3>Academic and Research Uses</h3>
+                <p>Researchers use the dark web to study:</p>
+                <ul>
+                    <li>Cybersecurity threats</li>
+                    <li>Black market economics</li>
+                    <li>Censorship resistance</li>
+                    <li>Online criminal behavior</li>
+                </ul>
+            </div>
+            <div id="markets" class="tab-content">
+                <h3>Legal Markets and Services</h3>
+                <p>Not all dark web commerce is illegal. Legitimate services include:</p>
+                <div class="grid" style="margin-top: 1rem;">
+                    <div class="card">
+                        <div class="card-content">
+                            <h4>Privacy Services</h4>
+                            <p>VPNs, secure hosting, anonymous domain registration</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-content">
+                            <h4>Books</h4>
+                            <p>Banned or censored literature and textbooks</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-content">
+                            <h4>Security Tools</h4>
+                            <p>Digital forensics software, penetration testing tools</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="dark-side" class="container" style="background: rgba(231, 76, 60, 0.1); padding: 3rem; border-radius: 10px;">
+        <h2 class="section-title">The Dark Side</h2>
+        <div class="tab-container">
+            <div class="tabs">
+                <button class="tab-btn active" onclick="openTab(event, 'illegal-markets')">Illegal Markets</button>
+                <button class="tab-btn" onclick="openTab(event, 'exploits')">Cybercrime</button>
+                <button class="tab-btn" onclick="openTab(event, 'disturbing')">Disturbing Content</button>
+                <button class="tab-btn" onclick="openTab(event, 'scams')">Scams</button>
+            </div>
+            <div id="illegal-markets" class="tab-content active">
+                <h3>Black Markets</h3>
+                <p>The dark web hosts numerous illegal marketplaces selling:</p>
+                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-top: 1rem;">
+                    <div class="card">
+                        <div class="card-content">
+                            <h4>Drugs</h4>
+                            <p>From marijuana to fentanyl, often with user reviews and "escrow" services</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-content">
+                            <h4>Weapons</h4>
+                            <p>Firearms, explosives, and other weapons traded illegally</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-content">
+                            <h4>Stolen Data</h4>
+                            <p>Credit cards, identities, hacked accounts, and corporate data</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-content">
+                            <h4>Counterfeit</h4>
+                            <p>Fake currency, passports, driver's licenses, and other documents</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Search dark web market listings..." id="market-search">
+                    <button class="search-btn" onclick="searchMarkets()"><i class="fas fa-search"></i></button>
+                </div>
+                <div id="market-results" class="grid hidden"></div>
+            </div>
+            <div id="exploits" class="tab-content">
+                <h3>Cybercrime Services</h3>
+                <p>The dark web is a hub for cybercriminal activity:</p>
+                <div class="grid">
+                    <div class="card">
+                        <div class="card-content">
+                            <h4>Hacking Services</h4>
+                            <p>For-hire hackers offering website takedowns, data breaches, and system compromises</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-content">
+                            <h4>Malware</h4>
+                            <p>Custom viruses, ransomware, and exploit kits sold or rented</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-content">
+                            <h4>DDoS Attacks</h4>
+                            <p>Booters and stressers offering distributed denial-of-service attacks</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="disturbing" class="tab-content">
+                <div class="warning" style="background: #8e44ad;">
+                    <h3>⚠️ Extreme Content Warning</h3>
+                    <p>The following section contains descriptions of highly disturbing content available on the dark web.</p>
+                    <button class="btn" style="background: white; color: #8e44ad;" onclick="showDisturbingContent()">I Understand</button>
+                </div>
+                <div id="disturbing-content" class="hidden">
+                    <h3>Most Disturbing Dark Web Content</h3>
+                    <div class="grid">
+                        <div class="card">
+                            <div class="card-content">
+                                <h4>Red Rooms</h4>
+                                <p>Rumored live-streamed torture and murder sessions (mostly scams)</p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-content">
+                                <h4>Human Trafficking</h4>
+                                <p>Illegal trade of humans for forced labor, sexual exploitation, or organs</p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-content">
+                                <h4>Child Exploitation</h4>
+                                <p>Illegal content and communities that law enforcement actively targets</p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-content">
+                                <h4>Snuff Content</h4>
+                                <p>Videos depicting real murders and violent acts (some confirmed real)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="scams" class="tab-content">
+                <h3>Dark Web Scams</h3>
+                <p>Many dark web offerings are outright scams:</p>
+                <div class="grid">
+                    <div class="card">
+                        <div class="card-content">
+                            <h4>Hitman Services</h4>
+                            <p>Nearly all are scams taking money without providing any service</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-content">
+                            <h4>Fake IDs</h4>
+                            <p>Many sellers take payment and never deliver or send poor quality fakes</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-content">
+                            <h4>Exit Scams</h4>
+                            <p>Marketplaces suddenly disappearing with all user funds</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="history" class="container">
+        <h2 class="section-title">History of the Dark Web</h2>
+        <div class="timeline">
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h4>1990s</h4>
+                    <p>Early anonymizing networks developed by military and intelligence agencies</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h4>2002</h4>
+                    <p>Tor project begins development at the U.S. Naval Research Laboratory</p>
+                </div>
+            </div>
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h4>2009</h4>
+                    <p>Bitcoin created, later becoming the currency of choice for dark web markets</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h4>2011</h4>
+                    <p>Silk Road launched, pioneering dark web e-commerce with illegal goods</p>
+                </div>
+            </div>
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h4>2013</h4>
+                    <p>FBI shuts down Silk Road, arrests founder Ross Ulbricht</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h4>2017</h4>
+                    <p>AlphaBay and Hansa market takedowns by international law enforcement</p>
+                </div>
+            </div>
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h4>2020s</h4>
+                    <p>Increased dark web activity during COVID-19 pandemic, rise of decentralized markets</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-to" class="container">
+        <h2 class="section-title">How To Access The Dark Web</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="card-content">
+                    <h3>Step 1: Download Tor Browser</h3>
+                    <p>The Tor Browser is the most common way to access the dark web. It routes your traffic through multiple servers to conceal your location.</p>
+                    <button class="btn" onclick="window.open('https://www.torproject.org/download/')">Download Tor</button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <h3>Step 2: Security Precautions</h3>
+                    <ul>
+                        <li>Use a VPN for additional anonymity</li>
+                        <li>Disable JavaScript in Tor Browser</li>
+                        <li>Never download files or enable plugins</li>
+                        <li>Use disposable virtual machines if needed</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <h3>Step 3: Finding Sites</h3>
+                    <p>Dark web sites use .onion addresses. Directories like:</p>
+                    <ul>
+                        <li>The Hidden Wiki</li>
+                        <li>Tor Links</li>
+                        <li>Dark.fail (for market links)</li>
+                    </ul>
+                    <p>Note: Many directories contain illegal links</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal" id="modal1">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal1')">&times;</span>
+            <h2>What is the Dark Web?</h2>
+            <p>The dark web is a subset of the deep web that is intentionally hidden and requires specific software, configurations, or authorization to access. It forms a small part of the larger deep web, which is not indexed by standard search engines.</p>
+            <p>Key characteristics:</p>
+            <ul>
+                <li><strong>Anonymity:</strong> Designed to protect user identities and location</li>
+                <li><strong>Decentralized:</strong> No central control or ownership</li>
+                <li><strong>Encrypted:</strong> Communications are heavily encrypted</li>
+                <li><strong>Special Access:</strong> Requires tools like Tor, I2P, or Freenet</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="modal" id="modal2">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal2')">&times;</span>
+            <h2>How The Dark Web Works</h2>
+            <p>The dark web operates through overlay networks that use the public internet but require specific software to access. The most common is Tor (The Onion Router).</p>
+            <h3>Tor Network Operation:</h3>
+            <ol>
+                <li>User installs Tor browser which connects to the Tor network</li>
+                <li>Traffic is encrypted and routed through multiple volunteer nodes</li>
+                <li>Each node only knows the previous and next hop in the circuit</li>
+                <li>Final exit node connects to the destination .onion site</li>
+                <li>Communication is encrypted end-to-end</li>
+            </ol>
+            <p>This multi-layered encryption (hence "onion") makes tracking extremely difficult.</p>
+        </div>
+    </div>
+
+    <div class="modal" id="modal3">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal3')">&times;</span>
+            <h2>Dark Web Anonymity</h2>
+            <p>The dark web provides several layers of protection for user anonymity:</p>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-content">
+                        <h4>Network Architecture</h4>
+                        <p>Distributed nodes prevent any single point of failure or surveillance</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <h4>Encryption</h4>
+                        <p>Multiple layers of encryption protect data in transit</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <h4>No Logging</h4>
+                        <p>Properly configured services don't keep logs that could identify users</p>
+                    </div>
+                </div>
+            </div>
+            <p><strong>Warning:</strong> Anonymity is not absolute. Operational security mistakes can reveal identities.</p>
+        </div>
+    </div>
+
+    <div class="dark-mode-toggle" onclick="toggleDarkMode()">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <div class="scroll-top hidden" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <footer>
+        <div class="container">
+            <h3>DarkWebExplorer</h3>
+            <p>An educational resource about the hidden internet</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-discord"></i></a>
+            </div>
+            <p style="margin-top: 2rem; font-size: 0.8rem;">⚠️ Disclaimer: This site is for educational purposes only. Accessing certain parts of the dark web may be illegal in your jurisdiction.</p>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript WILL BE INSERTED HERE
+        // Tab functionality
+        function openTab(evt, tabName) {
+            const tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+
+            const tabButtons = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
+            }
+
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // Modal functionality
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add("active");
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove("active");
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modals = document.getElementsByClassName("modal");
+            for (let i = 0; i < modals.length; i++) {
+                if (event.target == modals[i]) {
+                    modals[i].classList.remove("active");
+                }
+            }
+        }
+
+        // Dark mode toggle
+        function toggleDarkMode() {
+            const body = document.body;
+            const root = document.documentElement;
+            
+            if (body.classList.contains("light-mode")) {
+                body.classList.remove("light-mode");
+                root.style.setProperty('--primary', '#2c3e50');
+                root.style.setProperty('--secondary', '#34495e');
+                root.style.setProperty('--text', '#ecf0f1');
+                root.style.setProperty('--dark', '#1a1a1a');
+                document.querySelector('.dark-mode-toggle i').className = 'fas fa-moon';
+            } else {
+                body.classList.add("light-mode");
+                root.style.setProperty('--primary', '#3498db');
+                root.style.setProperty('--secondary', '#2980b9');
+                root.style.setProperty('--text', '#2c3e50');
+                root.style.setProperty('--dark', '#f5f5f5');
+                document.querySelector('.dark-mode-toggle i').className = 'fas fa-sun';
+            }
+        }
+
+        // Scroll to top button
+        window.onscroll = function() {
+            const scrollTopBtn = document.querySelector('.scroll-top');
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                scrollTopBtn.classList.remove("hidden");
+            } else {
+                scrollTopBtn.classList.add("hidden");
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Show disturbing content after warning
+        function showDisturbingContent() {
+            document.getElementById('disturbing-content').classList.remove("hidden");
+            document.querySelector('#disturbing .warning').classList.add("hidden");
+        }
+
+        // Fake market search functionality
+        function searchMarkets() {
+            const searchTerm = document.getElementById('market-search').value.toLowerCase();
+            const resultsContainer = document.getElementById('market-results');
+            
+            if (!searchTerm) {
+                resultsContainer.innerHTML = '<p class="warning" style="grid-column: 1/-1">Please enter a search term</p>';
+                resultsContainer.classList.remove("hidden");
+                return;
+            }
+
+            // Fake market data
+            const fakeMarkets = [
+                { name: "Silk Road Reloaded", category: "Drugs", description: "Various narcotics from global vendors", rating: "4.2/5" },
+                { name: "Black Market Guns", category: "Weapons", description: "Firearms and ammunition", rating: "3.8/5" },
+                { name: "Data Leak Warehouse", category: "Stolen Data", description: "Credit cards, SSNs, and hacked accounts", rating: "4.5/5" },
+                { name: "Fake ID Empire", category: "Counterfeit", description: "High quality fake documents", rating: "4.0/5" },
+                { name: "Hackers For Hire", category: "Services", description: "Custom hacking jobs", rating: "4.7/5" },
+                { name: "Dark Net Pharmaceuticals", category: "Drugs", description: "Prescription medications", rating: "4.1/5" }
+            ];
+
+            // Filter results
+            const filtered = fakeMarkets.filter(market => 
+                market.name.toLowerCase().includes(searchTerm) || 
+                market.category.toLowerCase().includes(searchTerm) ||
+                market.description.toLowerCase().includes(searchTerm)
+            );
+
+            // Display results
+            if (filtered.length > 0) {
+                let html = '';
+                filtered.forEach(market => {
+                    html += `
+                        <div class="card">
+                            <div class="card-content">
+                                <h4>${market.name}</h4>
+                                <p><strong>Category:</strong> ${market.category}</p>
+                                <p>${market.description}</p>
+                                <p><strong>Rating:</strong> ${market.rating}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+                resultsContainer.innerHTML = html;
+            } else {
+                resultsContainer.innerHTML = '<p class="warning" style="grid-column: 1/-1">No results found</p>';
+            }
+            
+            resultsContainer.classList.remove("hidden");
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Initialize first tab as active
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show first tab content
+            const firstTab = document.querySelector('.tab-btn');
+            if (firstTab) {
+                firstTab.click();
+            }
+            
+            // Close all modals on load
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                modal.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
